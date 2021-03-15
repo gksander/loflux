@@ -2,10 +2,13 @@
   "name": "loflux",
   "version": "0.0.1",
   "description": "Local Flux tool",
-  "main": "index.js",
+  "repository": "https://github.com/gksander/loflux.git",
   "license": "MIT",
+  "author": "Grant Sander <gksander93@gmail.com>",
   "scripts": {
-    "play": "parcel ./playground/index.html"
+    "play": "parcel ./playground/index.html -d ./playground/dist",
+    "build": "rm -rf dist && tsc",
+    "prepare": "yarn build"
   },
   "devDependencies": {
     "@types/react": "^17.0.3",
@@ -16,7 +19,12 @@
     "react-dom": "^17.0.1",
     "typescript": "^4.2.3"
   },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0"
+  },
   "dependencies": {
     "immer": "^8.0.1"
-  }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts"
 }
