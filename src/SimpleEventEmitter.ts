@@ -6,7 +6,7 @@ export class SimpleEventEmitter<S> {
 
     return {
       unsubscribe: () => {
-        const indexToRemove = this.cbs?.indexOf(cb) || -1;
+        const indexToRemove = this.cbs?.indexOf(cb) ?? -1;
         if (indexToRemove >= 0) this.cbs?.splice(indexToRemove, 1);
       },
     };

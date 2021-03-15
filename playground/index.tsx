@@ -1,11 +1,7 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import {
-  createStore,
-  useActionDispatcher,
-  useActionEffect,
-  useStoreData,
-} from "../src/createStore";
+import { createStore } from "../src/createStore";
+import { useActionDispatcher, useActionEffect, useStoreData } from "../src";
 
 export const App: React.FC = () => {
   return (
