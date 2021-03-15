@@ -21,6 +21,41 @@ describe("useActionEffect", () => {
     expect(listener).toHaveBeenLastCalledWith({ name: "Susan Doe", age: 32 });
   });
 
+  it("should react to set of actions", () => {
+    // Setup
+    const store = setup();
+    const {
+      result: { current: changeName },
+    } = renderHook(() => useActionDispatcher(store, "changeName"));
+    const {
+      result: { current: changeAge },
+    } = renderHook(() => useActionDispatcher(store, "changeAge"));
+    const {
+      result: { current: doOtherThing },
+    } = renderHook(() => useActionDispatcher(store, "doOtherThing"));
+
+    const listener = jest.fn();
+    renderHook(() =>
+      useActionEffect(store, ["changeName", "changeAge"], listener),
+    );
+    expect(listener).not.toHaveBeenCalled();
+
+    act(() => {
+      changeName("Foo");
+    });
+    expect(listener).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      changeAge(3);
+    });
+    expect(listener).toHaveBeenCalledTimes(2);
+
+    act(() => {
+      doOtherThing();
+    });
+    expect(listener).toHaveBeenCalledTimes(2);
+  });
+
   it("should not respond to other actions", () => {
     // Setup
     const store = setup();
@@ -49,6 +84,7 @@ const setup = () => {
       changeAge: (draft, age: number) => {
         draft.age = age;
       },
+      doOtherThing: () => {},
     },
   });
 };

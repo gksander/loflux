@@ -6,13 +6,16 @@ import * as React from "react";
  */
 export const useActionEffect = <S extends any, A extends ActionList<S>>(
   store: Store<S, A>,
-  listenFor: keyof A,
+  listenFor: keyof A | (keyof A)[],
   effect: (state?: S) => void,
 ) => {
   React.useEffect(() => {
     const { unsubscribe } = store.eventEmitter.subscribe(
       ({ actionName, newState }) => {
-        if (actionName === listenFor) {
+        if (
+          (Array.isArray(listenFor) && listenFor.includes(actionName)) ||
+          (typeof listenFor === "string" && actionName === listenFor)
+        ) {
           effect(newState);
         }
       },

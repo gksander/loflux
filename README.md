@@ -213,7 +213,7 @@ const MyComponent = () => {
 The `useActionEffect` hook is a way to respond to actions that get dispatched. The signature is:
 
 ```ts
-useActionEffect(store: Store, actionName: string, effect: (newState: State) => void);
+useActionEffect(store: Store, actionName: string | string[], effect: (newState: State) => void);
 ```
 
 Here's a quick example:
