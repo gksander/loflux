@@ -22,6 +22,8 @@ const Header: React.FC = () => {
     "triggerSomeAction",
   );
 
+  console.log(name);
+
   return (
     <div>
       <h1>
