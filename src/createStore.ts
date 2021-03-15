@@ -1,4 +1,4 @@
-import produce, { Draft } from "immer";
+import produce from "immer";
 import { SimpleEventEmitter } from "./SimpleEventEmitter";
 import { ActionList, Store } from "./helperTypes";
 

@@ -32,6 +32,7 @@ describe("SimpleEventEmitter", () => {
     // Unsubscribe the first
     unsubscribe1();
 
+    // Second emit should only be picked up by second
     ee.emit(5);
     expect(listener1).toHaveBeenCalledTimes(1);
     expect(listener2).toHaveBeenCalledTimes(2);
