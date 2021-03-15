@@ -9,11 +9,23 @@ A sort-of-Flux-like state management library for React for creating stores that 
 - ✅ Not wrapped around your whole app.
 - ✅ Render-efficient.
 
-Check out a live demo here! (TODO: actually make this, LOL)
+Check out [a live demo here](https://codesandbox.io/s/loflux-demo-2tcw9?file=/src/App.tsx)!
 
 ## Basic Example
 
 Let's get you up and running with a simple example that illustrates how to use `loflux`.
+
+### Install the library
+
+Install from NPM:
+
+```shell
+# Using NPM
+npm install loflux
+
+# Or using Yarn
+yarn add loflux
+```
 
 ### Create a Store
 
