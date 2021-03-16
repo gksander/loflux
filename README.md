@@ -9,7 +9,7 @@ A sort-of-Flux-like state management library for React for creating stores that 
 - ✅ Not wrapped around your whole app.
 - ✅ Render-efficient.
 
-Check out [a live demo here](https://codesandbox.io/s/loflux-demo-2tcw9?file=/src/App.tsx)!
+Check out [a live demo here](https://codesandbox.io/s/loflux-demo-2tcw9?file=/src/App.tsx)! For a more dynamic example, check out [this live demo](https://codesandbox.io/s/loflux-points-2cynn?file=/src/Point.tsx).
 
 ## Basic Example
 
