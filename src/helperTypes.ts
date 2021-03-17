@@ -12,7 +12,12 @@ export type ActionList<S> = {
  * Store type
  */
 export type Store<S, A extends ActionList<S>> = {
-  dispatcher: <K extends keyof A>(fnName: K, payload: Parameters<A[K]>[1]) => S;
+  dispatch: <K extends keyof A>(
+    fnName: K,
+    ...payload: Parameters<A[K]>[1] extends undefined
+      ? []
+      : [Parameters<A[K]>[1]]
+  ) => S;
   getCurrentState: () => S;
   eventEmitter: SimpleEventEmitter<{
     actionName: keyof A;

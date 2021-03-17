@@ -8,7 +8,6 @@ import * as React from "react";
 export const useStoreData = <
   S extends any,
   A extends ActionList<S>,
-  K extends keyof A,
   Se extends (state: S) => any
 >(
   store: Store<S, A>,

@@ -1,7 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "../src/createStore";
-import { useActionDispatcher, useActionEffect, useStoreData } from "../src";
+import { createStore } from "../src";
 
 export const App: React.FC = () => {
   return (
@@ -9,20 +8,15 @@ export const App: React.FC = () => {
       <Header />
       <ChangeYourName />
       <ChangeYourAge />
+      <SomeOtherThing />
       <Footer />
     </div>
   );
 };
 
 const Header: React.FC = () => {
-  const name = useStoreData(profileStore, (s) => s.name);
-  const age = useStoreData(profileStore, (s) => s.age);
-  const triggerSomeAction = useActionDispatcher(
-    profileStore,
-    "triggerSomeAction",
-  );
-
-  console.log(name);
+  const name = useProfileData((s) => s.name);
+  const age = useProfileData((s) => s.age);
 
   return (
     <div>
@@ -30,7 +24,9 @@ const Header: React.FC = () => {
         HEADER, name is {name}, age is {age}
       </h1>
       <div>
-        <button onClick={() => triggerSomeAction()}>Do a thing!</button>
+        <button onClick={() => dispatchProfileAction("triggerSomeAction")}>
+          Do a thing!
+        </button>
       </div>
     </div>
   );
@@ -40,22 +36,23 @@ const Header: React.FC = () => {
  * Changing name
  */
 const ChangeYourName: React.FC = () => {
-  const name = useStoreData(profileStore, (s) => s.name);
-  const updateName = useActionDispatcher(profileStore, "updateName");
+  const name = useProfileData((s) => s.name);
 
   return (
     <div>
       <h3>Change your name!</h3>
       <div>
-        <input value={name} onChange={(e) => updateName(e.target.value)} />
+        <input
+          value={name}
+          onChange={(e) => dispatchProfileAction("updateName", e.target.value)}
+        />
       </div>
     </div>
   );
 };
 
 const ChangeYourAge: React.FC = () => {
-  const age = useStoreData(profileStore, (s) => s.age);
-  const updateAge = useActionDispatcher(profileStore, "updateAge");
+  const age = useProfileData((s) => s.age);
 
   return (
     <div>
@@ -64,16 +61,32 @@ const ChangeYourAge: React.FC = () => {
         type="number"
         value={age}
         onChange={(e) => {
-          updateAge(parseInt(e.target.value));
+          dispatchProfileAction("updateAge", parseInt(e.target.value));
         }}
       />
     </div>
   );
 };
 
+const SomeOtherThing: React.FC = () => {
+  const val = useSomeOtherData((s) => 2 * s);
+
+  return (
+    <div>
+      Value is {val},{" "}
+      <button onClick={() => dispatchOtherStoreAction("increment")}>
+        Increment
+      </button>{" "}
+      <button onClick={() => dispatchOtherStoreAction("decrement")}>
+        Decrement
+      </button>
+    </div>
+  );
+};
+
 const Footer: React.FC = () => {
   const [isExpanded, setIsExpanded] = React.useState(false);
-  useActionEffect(profileStore, "triggerSomeAction", () => {
+  useRespondToProfileAction("triggerSomeAction", () => {
     setIsExpanded((v) => !v);
   });
 
@@ -83,7 +96,11 @@ const Footer: React.FC = () => {
 /**
  * Creating our store
  */
-const profileStore = createStore({
+const {
+  dispatch: dispatchProfileAction,
+  useData: useProfileData,
+  useActionResponse: useRespondToProfileAction,
+} = createStore({
   initialState: { name: "Grant", age: 28 },
   actions: {
     updateName: (draft, name: string) => {
@@ -95,6 +112,17 @@ const profileStore = createStore({
     triggerSomeAction: (draft) => {
       draft.name = "Grant";
     },
+  },
+});
+
+const {
+  dispatch: dispatchOtherStoreAction,
+  useData: useSomeOtherData,
+} = createStore({
+  initialState: 0,
+  actions: {
+    increment: (draft) => (draft += 1),
+    decrement: (draft) => (draft -= 1),
   },
 });
 
