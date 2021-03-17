@@ -1,5 +1,4 @@
 import { createStore } from "./createStore";
-import { SimpleEventEmitter } from "./SimpleEventEmitter";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 describe("createStore", () => {
