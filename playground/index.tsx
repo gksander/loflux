@@ -18,6 +18,8 @@ const Header: React.FC = () => {
   const name = useProfileData((s) => s.name);
   const age = useProfileData((s) => s.age);
 
+  console.log(name);
+
   return (
     <div>
       <h1>

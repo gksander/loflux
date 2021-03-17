@@ -4,7 +4,7 @@ import { useStoreData } from "./useStoreData";
 
 describe("useStoreData", () => {
   it("should return store data via selector", () => {
-    const store = setup();
+    const { store } = setup();
     const { result: nameData } = renderHook(() =>
       useStoreData(store, (s) => s.name),
     );

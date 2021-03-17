@@ -30,7 +30,7 @@ export const createStore = <S extends any, A extends ActionList<S>>(options: {
     const newState = (() => {
       const f = actions[actionName];
       if (f) {
-        return produce(currentState, (draft) => f(draft, payload));
+        return produce(currentState, (draft) => f(draft, ...payload));
       } else {
         return currentState;
       }

@@ -6,7 +6,7 @@ import { useActionDispatcher } from "./useActionDispatcher";
 describe("useActionDispatcher", () => {
   it("should update store data", () => {
     // Setup
-    const store = setup();
+    const { store } = setup();
     const { result: nameData } = renderHook(() =>
       useStoreData(store, (s) => s.name),
     );

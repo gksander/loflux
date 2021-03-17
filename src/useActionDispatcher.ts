@@ -15,6 +15,6 @@ export const useActionDispatcher = <
   ...payload: Parameters<A[K]>[1] extends undefined ? [] : [Parameters<A[K]>[1]]
 ) => void) => {
   return React.useCallback((...payload) => {
-    store.dispatch(actionName, payload[0]);
+    store.dispatch(actionName, ...payload);
   }, []);
 };

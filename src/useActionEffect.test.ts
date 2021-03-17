@@ -6,7 +6,7 @@ import { useActionEffect } from "./useActionEffect";
 describe("useActionEffect", () => {
   it("should react to given action, passing new data to handler", () => {
     // Setup
-    const store = setup();
+    const { store } = setup();
     const {
       result: { current: changeName },
     } = renderHook(() => useActionDispatcher(store, "changeName"));
@@ -23,7 +23,7 @@ describe("useActionEffect", () => {
 
   it("should react to set of actions", () => {
     // Setup
-    const store = setup();
+    const { store } = setup();
     const {
       result: { current: changeName },
     } = renderHook(() => useActionDispatcher(store, "changeName"));
@@ -58,7 +58,7 @@ describe("useActionEffect", () => {
 
   it("should not respond to other actions", () => {
     // Setup
-    const store = setup();
+    const { store } = setup();
     const {
       result: { current: changeName },
     } = renderHook(() => useActionDispatcher(store, "changeName"));
