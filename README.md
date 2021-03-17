@@ -34,12 +34,8 @@ Start by creating a store. Your store will be type-safe based on the initial sta
 ```ts
 import { createStore } from "loflux";
 
-const {
-	useData: useProfileData,
-	dispatch: dispatchProfileAction,
-	useActionResponse: useRespondToProfileAction
-	} = createStore({
-	initialState: {name: "Jane Doe", age: 32},
+const { useData, dispatch, useActionResponse } = createStore({
+	initialState: { name: "Jane Doe", age: 32 },
 	actions: {
 		changeName: (draft, name: string) => {
 			draft.name = name;
