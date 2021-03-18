@@ -37,6 +37,12 @@ describe("createStore", () => {
       dispatch("changeAge", 73);
     });
     expect(ageData.current).toBe(73);
+
+    act(() => {
+      dispatch("changeBoth", "Grant", 28);
+    });
+    expect(nameData.current).toBe("Grant");
+    expect(ageData.current).toBe(28);
   });
 
   it("should expose a useActionResponse hook that responds to actions", () => {
@@ -60,6 +66,10 @@ const setup = () => {
         draft.name = name;
       },
       changeAge: (draft, age: number) => {
+        draft.age = age;
+      },
+      changeBoth: (draft, name: string, age: number) => {
+        draft.name = name;
         draft.age = age;
       },
     },

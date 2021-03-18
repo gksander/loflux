@@ -1,6 +1,6 @@
 import produce from "immer";
 import { SimpleEventEmitter } from "./SimpleEventEmitter";
-import { ActionList, Store } from "./helperTypes";
+import { ActionList, Store, Tail } from "./helperTypes";
 import { useStoreData } from "./useStoreData";
 import { useActionEffect } from "./useActionEffect";
 
@@ -25,7 +25,7 @@ export const createStore = <S extends any, A extends ActionList<S>>(options: {
     actionName: K,
     ...payload: Parameters<A[K]>[1] extends undefined
       ? []
-      : [Parameters<A[K]>[1]]
+      : Tail<Parameters<A[K]>>
   ) => {
     const newState = (() => {
       const f = actions[actionName];

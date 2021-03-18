@@ -87,7 +87,7 @@ const NameInput = () => {
 The `'changeName'` argument might look like a magic-string, but it's actually type-safe and based on the actions that
 you provide. Changing that to `'foobar'` is going to really upset TypeScript.
 
-Furthermore, the payload of that dispatched action is type-safe, too! Don't try to pass a `number` as the second argument if the action you're trying to dispatch isn't expecting it!
+Furthermore, the payload of that dispatched action is type-safe, too! Don't try to pass a `number` as the second argument if the action you're trying to dispatch isn't expecting it! In general, the last parameters of your actions are the last arguments you should pass through to the action when it's dispatched!
 
 ### Subscribe to Actions
 
@@ -167,11 +167,28 @@ Use this selector to pluck out the data that you need, or do any massaging you n
 The `createStore` function will return a `dispatch` method that you can use to dispatch actions to the store. The signature for this hook is:
 
 ```tsx
-createStore().dispatch = (actionName, payload) => void;
+createStore().dispatch = (actionName, ...payload) => void;
 ```
 
-You pass in an action name as a string (corresponds to the actions you declared when creating the store), and a payload that matches the type of the second parameter of the declared action. 
+You pass in an action name as a string (corresponds to the actions you declared when creating the store), and payload value(s) that matches the type of the payload parameter(s) of the declared action.
 
+Here's an example of using more than one payload argument:
+
+```tsx
+const { dispatch } = createStore({
+  initialState: { name: 'Grant', age: 28 },
+  actions: {
+  	changeNameAndAge: (draft, name: string, age: number) => {
+  		draft.name = name;
+  		draft.age = age;
+    }
+  }
+});
+
+// ... later on
+
+dispatch('changeNameAndAge', 'John Doe', 37);
+```
 
 #### The `createStore().useActionResponse` hook
 
@@ -255,3 +272,8 @@ const MyComponent = () => {
   return <button onClick={() => updateName("Susan!")}>Change to Susan!</button>;
 }
 ```
+
+## TODO:
+
+- [x] Actions can take more than one argument, spread thru args
+- [ ] Thunk support
